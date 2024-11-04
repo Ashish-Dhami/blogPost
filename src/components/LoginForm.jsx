@@ -7,7 +7,7 @@ import {login} from "../store/authSlice.js";
 import {useNavigate} from "react-router-dom";
 
 function LoginForm() {
-    const {register,handleSubmit}=useForm()
+    const {register,handleSubmit,formState:{errors}}=useForm()
     const [error, setError] = useState("")
     const navigate = useNavigate()
     const dispatch = useDispatch()
@@ -30,24 +30,28 @@ function LoginForm() {
     return (
         <div className="flex items-center justify-center">
             <div className="mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10">
-                {error && <p className="text-red-600 mt-8 text-center">{error}</p>}
+                {error && <span className="text-red-600 text-center">{error}</span>}
                 <form onSubmit={handleSubmit(loginHandler)}>
-                    <div className='space-y-5'>
+                    <div className='space-y-10'>
                         <Input
+                            className={`${errors.email ? "border-red-600" : "border-gray-200"}`}
                             label="Email : "
                             placeholder="Enter your email"
                             {...register("email", {
-                                required: true,
-                                pattern: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/
+                                required: "Email is required",
+                                pattern: {value : /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, message: "Invalid email"}
                             })}
                         />
+                        {errors.email && (<span className="text-red-600 mt-8 ml-2 text-center">{errors.email.message}</span>)}
                         <Input
                             label="Password : "
                             placeholder="Enter your password"
                             {...register("password", {
-                                required: true
+                                required: "Password cannot be empty",
+                                minLength: {value : 8, message: "Password should exceed 8 characters"}
                             })}
                         />
+                        {errors.password && (<span className="text-red-600 mt-8 ml-2 text-center">{errors.password.message}</span>)}
                         <Button className="w-full" type="submit">
                             Login
                         </Button>
