@@ -5,10 +5,10 @@ function Dashboard() {
         <div className="container max-w-full flex flex-col items-center justify-center bg-white">
             <section className="flex flex-col text-center">
                 <p className="text-xl text-gray-600">
-                    Welcome to
+                    New Features
                 </p>
                 <h1 className="max-w-xl text-6xl font-bold text-black">
-                    DASHBOARD
+                    coming soon
                 </h1>
             </section>
             <div>
