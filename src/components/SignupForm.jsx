@@ -7,7 +7,7 @@ import {login} from "../store/authSlice.js";
 import {useNavigate} from "react-router-dom";
 
 function SignupForm() {
-    const {register,handleSubmit,formState:{errors}} = useForm()
+    const {register,handleSubmit,formState:{errors,isSubmitting}} = useForm()
     const [error, setError] = useState("")
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -59,7 +59,7 @@ function SignupForm() {
                             })}
                         />
                         {errors.password && (<span className="text-red-600 mt-8 ml-2 text-center">{errors.password.message}</span>)}
-                        <Button className="w-full" type="submit">
+                        <Button className="w-full" type="submit" disabled={isSubmitting}>
                             Create Account
                         </Button>
                     </div>
